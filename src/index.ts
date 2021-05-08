@@ -1,0 +1,1 @@
+export {default as FixedFloatInput} from './compoments/FixedFloatInput';
