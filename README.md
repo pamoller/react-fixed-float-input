@@ -4,11 +4,11 @@ Format the value of a HTML input field as a float with fixed precision
 import { useState } from 'react';
 import FixedFloatInput from 'react-fixed-float-input';
  
-function behaviour() {
+function Formular() {
     const [value, setValue] = useState(12);
-    const onChange(value) => setValue(value);
-    return <FixedFloatInput value={value} onChange={onChange}/>;
- }
+    const onChange = value => setValue(value);
+    return <FixedFloatInput  data-testid='behaviour' value={value} onChange={onChange}/>;
+}
  ```
  
 1) initialize value by 12 => <input>12.00</input> 

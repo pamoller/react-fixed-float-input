@@ -1,17 +1,20 @@
+import React, { useState } from 'react'
 import '@testing-library/jest-dom/extend-expect'
 import { render, fireEvent, screen } from '@testing-library/react'
-import React from 'react';
 
 import FixedFloatInput from './FixedFloatInput';
+ 
+function Wrapper() {
+    const [value, setValue] = useState(12);
+    const onChange = value => setValue(value);
+    return <FixedFloatInput  data-testid='behaviour' value={value} onChange={onChange}/>;
+}
 
 const setup = (start) => {
-    let [value, onChange] = [start, val => value = val];
-    const utils = render(<FixedFloatInput data-testid='behaviour' value={value} onChange={onChange} />)
+    const utils = render(<Wrapper/>)
     const input = utils.getByTestId(/behaviour/i);
     return {
         input,
-        value,
-        onChange,
         ...utils
     };
 };
@@ -26,14 +29,6 @@ test('can change value', async () => {
     fireEvent.change(input, { target: { value: '23.0' } })
     expect((input as any).value).toBe('23.0');
 });
-
-/**
-test('can change value', async () => {
-    const { input, value, onChange } = setup(12);
-    onChange(100.02);
-    expect((input as any).value).toBe('100.02');
-});
-*/
 
 test('round on blur', async () => {
     const { input } = setup(12);

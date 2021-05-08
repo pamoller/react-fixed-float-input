@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes, { InferProps } from 'prop-types';
 
-const defaultFormatter = function(precision) {
+const defaultFormatter = function(precision: number) {
     return number => (Math.round(10 ** precision * parseFloat(number)) / 10 ** precision).toFixed(precision);
 }
 
@@ -25,7 +25,6 @@ function FixedFloatInput({value, onChange, precision, formatter, onBlur, onKeyPr
     const [innerValue, setInnerValue] = useState(format(value));
    
     function setAllValues(value, event) {
-        console.log(value, typeof(value));
         setInnerValue(value);
         onChange(parseFloat(value), event);
     }
@@ -46,12 +45,9 @@ function FixedFloatInput({value, onChange, precision, formatter, onBlur, onKeyPr
         onKeyPress(event);
     }
 
-
     useEffect(
         () => {
-            console.log(innerValue, typeof(innerValue), value, typeof(innerValue), (innerValue !== '' || value !== null), );
             if ((innerValue !== '' || value !== null) && parseFloat(innerValue) !== parseFloat(value as any)) {
-                console.log("modified");
                 setInnerValue(format(value));
             }
         },
