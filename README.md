@@ -2,7 +2,7 @@
 
 Use it to start and end editing of the encapsulated ````<input/>```` field with a float of fixed precision.
 
-e.g. start by 0.00 and with end: 9.99, but allow free editing in between. 
+e.g. start by 0.00 and with end: 9.99, but allow free editing in between. By default 9.98542 will be rounded to 9.99 on leaving the field (onBlur). 
 
 ## Installation
  
@@ -22,7 +22,7 @@ function Formular() {
  
 1) initialize value by 12: ````setValue(12)```` results in formatting to ````<input>12.00</input>```` 
 2) editing the ````<input/>```` field manually to ````<input>9.092121</input>```` sets value by ````setValue(9.091212)````
-3) leaving the input field (onBlur) set value by ````setValue(9.10)```` as well ````<input>9.10</input>````  
+3) leaving the input field (onBlur) sets value by ````setValue(9.1)```` and formats ````<input/>```` to ````<input>9.10</input>````  
 
 ## Props
 
