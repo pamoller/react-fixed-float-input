@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes, { InferProps } from 'prop-types';
 
 const defaultFormatter = function (precision: number): CallableFunction {
-    precision = Math.abs(Math.ceil(precision < 1 ? 0 : precision));
+    precision = Math.ceil(precision < 1 ? 0 : precision);
     return (number: any): string => {
         const res = Math.round(10 ** precision * parseFloat(number)) / 10 ** precision;
         return isNaN(res) ? '' : res.toFixed(precision);
@@ -41,7 +41,7 @@ const defaultProps = {
 
 function FixedFloatInput({ value, onChange, precision, formatter, onBlur, onKeyPress, ...props }: InferProps<typeof FixedFloatInput.propTypes>) {
     const format = connectFormatter(formatter ? formatter : defaultFormatter(precision));
-    const [innerValue, setInnerValue] = useState(format(value, 'onInit'));
+    const [innerValue, setInnerValue] = useState(format(value));
 
     function setAllValues(value, event) {
         setInnerValue(value);
@@ -54,7 +54,7 @@ function FixedFloatInput({ value, onChange, precision, formatter, onBlur, onKeyP
 
     function onInnerBlur(event) {
         if (innerValue !== '')
-            setAllValues(format(innerValue, 'onInnerBlur'), event);
+            setAllValues(format(innerValue), event);
         onBlur(event.target.value, event)
     }
 
@@ -66,10 +66,8 @@ function FixedFloatInput({ value, onChange, precision, formatter, onBlur, onKeyP
 
     useEffect(
         () => {
-            console.log(value, typeof (value), innerValue, typeof (innerValue))
             if (parseFloat(innerValue) !== parseFloat(value as any)) {
-                console.log('set inner', format(value), typeof (format(value)))
-                setInnerValue(format(value, 'oneffekt'));
+                setInnerValue(format(value));
             }
         },
         [value]
@@ -77,7 +75,7 @@ function FixedFloatInput({ value, onChange, precision, formatter, onBlur, onKeyP
 
     useEffect(
         () => {
-            setInnerValue(format(innerValue, 'onpresision'));
+            setInnerValue(format(innerValue));
         },
         [precision]
     );
