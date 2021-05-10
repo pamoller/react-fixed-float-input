@@ -1,30 +1,36 @@
 import React, { useState, useEffect } from "react";
 import PropTypes, { InferProps } from 'prop-types';
 
-const defaultFormatter = function (precision: number) {
+const defaultFormatter = function (precision: number): CallableFunction {
     precision = Math.abs(Math.ceil(precision < 1 ? 0 : precision));
-    return number => (Math.round(10 ** precision * parseFloat(number)) / 10 ** precision).toFixed(precision);
+    return (number: any): string => {
+        const res = Math.round(10 ** precision * parseFloat(number)) / 10 ** precision;
+        return isNaN(res) ? '' : res.toFixed(precision);
+    }
 }
 
+const connectFormatter = function (formatter: CallableFunction): CallableFunction {
+    return (value: any): string => String(formatter(value));
+}
 
 const propTypes = {
-    value: PropTypes.number.isRequired,
-    onChange: PropTypes.func.isRequired,
-    precision: PropTypes.number,
-    formatter: PropTypes.func,
-    onBlur: PropTypes.func,
-    onKeyPress: PropTypes.func,
     autofocus: PropTypes.bool,
+    className: PropTypes.string,
     disabled: PropTypes.bool,
+    id: PropTypes.string,
+    formatter: PropTypes.func,
     inputmethod: PropTypes.string,
     max: PropTypes.number,
     min: PropTypes.number,
     name: PropTypes.string,
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func.isRequired,
+    onKeyPress: PropTypes.func,
+    precision: PropTypes.number,
     readonly: PropTypes.bool,
     required: PropTypes.bool,
     step: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    className: PropTypes.string,
-    id: PropTypes.string
+    value: PropTypes.number.isRequired,
 };
 
 const defaultProps = {
@@ -33,9 +39,9 @@ const defaultProps = {
     onKeyPress: () => undefined
 };
 
-function FixedFloatInput({ value, onChange, precision, formatter, onBlur, onKeyPress, ...props }: InferProps<typeof FixedFloatInput.propTypes>)  {
-    const format = formatter ? formatter : defaultFormatter(precision);
-    const [innerValue, setInnerValue] = useState(format(value));
+function FixedFloatInput({ value, onChange, precision, formatter, onBlur, onKeyPress, ...props }: InferProps<typeof FixedFloatInput.propTypes>) {
+    const format = connectFormatter(formatter ? formatter : defaultFormatter(precision));
+    const [innerValue, setInnerValue] = useState(format(value, 'onInit'));
 
     function setAllValues(value, event) {
         setInnerValue(value);
@@ -48,7 +54,7 @@ function FixedFloatInput({ value, onChange, precision, formatter, onBlur, onKeyP
 
     function onInnerBlur(event) {
         if (innerValue !== '')
-            setAllValues(format(innerValue), event);
+            setAllValues(format(innerValue, 'onInnerBlur'), event);
         onBlur(event.target.value, event)
     }
 
@@ -60,8 +66,10 @@ function FixedFloatInput({ value, onChange, precision, formatter, onBlur, onKeyP
 
     useEffect(
         () => {
-            if ((innerValue !== '' || value !== null) && parseFloat(innerValue) !== parseFloat(value as any)) {
-                setInnerValue(format(value));
+            console.log(value, typeof (value), innerValue, typeof (innerValue))
+            if (parseFloat(innerValue) !== parseFloat(value as any)) {
+                console.log('set inner', format(value), typeof (format(value)))
+                setInnerValue(format(value, 'oneffekt'));
             }
         },
         [value]
@@ -69,7 +77,7 @@ function FixedFloatInput({ value, onChange, precision, formatter, onBlur, onKeyP
 
     useEffect(
         () => {
-            setInnerValue(format(innerValue));
+            setInnerValue(format(innerValue, 'onpresision'));
         },
         [precision]
     );
