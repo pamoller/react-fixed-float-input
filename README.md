@@ -35,4 +35,4 @@ function Formular() {
 | onChange | ````func(value: number, event: Event)````| required | Handle the changed value by a callback |
 | precision | number (integer) | 2 | The precision of the formatted value, e.g. 2 => 12.00. Works only for the default formatter. |
 | step | number | 1 | in/decrease the input value by spinner |
-| value | number or string | required | the formatted value | 
+| value | number | required | the formatted value | 
