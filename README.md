@@ -1,6 +1,6 @@
 # react fixed float input
 
-Use it to start and end editing of the encapsulated ````<input/>```` field with a value of fixed precision.
+Use it to start and end editing of the encapsulated ````<input/>```` field with a float of fixed precision.
 
 e.g. start by 0.00 and with end: 9.99. But allow fee editing in between. 
 
