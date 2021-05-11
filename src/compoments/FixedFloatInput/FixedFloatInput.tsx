@@ -19,19 +19,15 @@ const propTypes = {
     disabled: PropTypes.bool,
     id: PropTypes.string,
     formatter: PropTypes.func,
-    inputmethod: PropTypes.string,
     max: PropTypes.number,
     min: PropTypes.number,
     name: PropTypes.string,
-    onBlur: PropTypes.func,
     onChange: PropTypes.func,
-    onKeyPress: PropTypes.func,
     precision: PropTypes.number,
     roundType: PropTypes.oneOf(['round', 'floor', 'ceil']),
     readonly: PropTypes.bool,
     //ref: PropTypes.oneOfType([PropTypes.func, PropTypes.shape({current: PropTypes.any})]),
     ref: PropTypes.any,
-    required: PropTypes.bool,
     step: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     value: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 };
@@ -39,12 +35,10 @@ const propTypes = {
 const defaultProps = {
     precision: 2,
     roundType: 'round',
-    onChange: () => undefined,
-    onBlur: () => undefined,
-    onKeyPress: () => undefined
+    onChange: () => undefined
 };
 
-function FixedFloatInput({ value, onChange, precision, roundType, formatter, onBlur, onKeyPress, ...props }: InferProps<typeof FixedFloatInput.propTypes>) {
+function FixedFloatInput({ value, onChange, precision, roundType, formatter, ...props }: InferProps<typeof FixedFloatInput.propTypes>) {
     const format = connectFormatter(formatter ? formatter : defaultFormatter(precision, roundType));
     const [innerValue, setInnerValue] = useState(format(value));
 
@@ -60,13 +54,11 @@ function FixedFloatInput({ value, onChange, precision, roundType, formatter, onB
     function onInnerBlur(event) {
         if (innerValue !== '')
             setAllValues(format(innerValue), event);
-        onBlur(event.target.value, event)
     }
 
     function onInnerKeyPress(event) {
         if (['-', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ',', '.'].indexOf(event.key) < 0)
             event.preventDefault();
-        onKeyPress(event);
     }
 
     useEffect(
