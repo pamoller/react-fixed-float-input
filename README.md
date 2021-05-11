@@ -28,15 +28,13 @@ function Formular() {
 
 | Name | Type | Default | Description |
 | -----|------| --------| ----------- |
-| autofocus| boolean | false | HTML 5 input attribute |
 | className | string | | Custom CSS class |   
 | formatter | ````func(value: number): string```` | | Custom formatter callback overwrites the default formatter |
-| id | string | | HTML 5 input attribute |
 | max | number | | HTML 5 input attribute |
 | min | number | | HTML 5 input attribute |
 | onChange | ````func(value: number, event: Event)````| | Handle the changed value by a callback |
 | precision | number (integer) | 2 | The precision of the formatted value, e.g. 2 => 12.00. Works only for the default formatter. |
-| readonly | boolean | false | HTML 5 input attribute |
+| ref | React.ref | | react reference |
 | roundType | 'round' \| 'ceil' \| 'floor' | round | Round arbitrary digits by Math.round, ...|
 | step | number | 1 | HTML 5 input attribute |
 | value | number | | the formatted value | 
