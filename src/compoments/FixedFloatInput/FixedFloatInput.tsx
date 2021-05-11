@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import PropTypes, { InferProps } from 'prop-types';
 
-const defaultFormatter = function (precision: number): CallableFunction {
-    precision = Math.ceil(precision < 1 ? 0 : precision);
+const defaultFormatter = function (precision: number, roundType: string): CallableFunction {
+    precision = Math.floor(precision < 0?0:precision);
     return (number: any): string => {
-        const res = Math.round(10 ** precision * parseFloat(number)) / 10 ** precision;
+        const res = Math[roundType](10 ** precision * parseFloat(number)) / 10 ** precision;
         return isNaN(res) ? '' : res.toFixed(precision);
     }
 }
@@ -24,23 +24,28 @@ const propTypes = {
     min: PropTypes.number,
     name: PropTypes.string,
     onBlur: PropTypes.func,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
     onKeyPress: PropTypes.func,
     precision: PropTypes.number,
+    roundType: PropTypes.oneOf(['round', 'floor', 'ceil']),
     readonly: PropTypes.bool,
+    //ref: PropTypes.oneOfType([PropTypes.func, PropTypes.shape({current: PropTypes.any})]),
+    ref: PropTypes.any,
     required: PropTypes.bool,
     step: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    value: PropTypes.number.isRequired,
+    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 };
 
 const defaultProps = {
     precision: 2,
+    roundType: 'round',
+    onChange: () => undefined,
     onBlur: () => undefined,
     onKeyPress: () => undefined
 };
 
-function FixedFloatInput({ value, onChange, precision, formatter, onBlur, onKeyPress, ...props }: InferProps<typeof FixedFloatInput.propTypes>) {
-    const format = connectFormatter(formatter ? formatter : defaultFormatter(precision));
+function FixedFloatInput({ value, onChange, precision, roundType, formatter, onBlur, onKeyPress, ...props }: InferProps<typeof FixedFloatInput.propTypes>) {
+    const format = connectFormatter(formatter ? formatter : defaultFormatter(precision, roundType));
     const [innerValue, setInnerValue] = useState(format(value));
 
     function setAllValues(value, event) {
