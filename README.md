@@ -28,11 +28,18 @@ function Formular() {
 
 | Name | Type | Default | Description |
 | -----|------| --------| ----------- |
-| className | string | none | Custom CSS class |   
-| formatter | ````func(value: number): string```` | round to precision | Format the input value by a callback function |
-| max | number | none | maximum value |
-| min | number | none | minimum value |
-| onChange | ````func(value: number, event: Event)````| required | Handle the changed value by a callback |
+| autofocus| boolean | false | HTML 5 input attribute |
+| className | string | | Custom CSS class |   
+| formatter | ````func(value: number): string```` | | Custom formatter callback overwrites the default formatter |
+| id | string | | HTML 5 input attribute |
+| max | number | | HTML 5 input attribute |
+| min | number | | HTML 5 input attribute |
+| onChange | ````func(value: number, event: Event)````| | Handle the changed value by a callback |
 | precision | number (integer) | 2 | The precision of the formatted value, e.g. 2 => 12.00. Works only for the default formatter. |
-| step | number | 1 | in/decrease the input value by spinner |
-| value | number | required | the formatted value | 
+| readonly | boolean | false | HTML 5 input attribute |
+| roundType | 'round' \| 'ceil' \| 'floor' | round | Round arbitrary digits by Math.round, ...|
+| step | number | 1 | HTML 5 input attribute |
+| value | number | | the formatted value | 
+
+* default formatter, inspect the code
+* HTML 5 input attribute, see https://developer.mozilla.org/de/docs/Web/HTML/Element/Input#attribute.
