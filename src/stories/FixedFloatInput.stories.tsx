@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import FixedFloatInput from '../compoments/FixedFloatInput';
+import RefFixedFloatInput, {RefType} from '../compoments/FixedFloatInput';
 
 import { storiesOf } from '@storybook/react';
 
@@ -15,7 +16,7 @@ stories.add('Default behaviour (preset is number)', () => {
         <>
             <h1>value: {value}, type:{typeof (value)}</h1>
             <FixedFloatInput value={value} onChange={onChange} />
-            <button onClick={() => setValue(preset)}>&lt;- Set Preset:</button>
+            <button onClick={() => setValue(preset)}>&lt;- SetValue:</button>
             <input type="number" value={preset} onChange={evt => setPreset(parseFloat(evt.target.value))} />
         </>
     );
@@ -32,7 +33,7 @@ stories.add('Default behaviour (preset is string)', () => {
         <>
             <h1>value: {value}, type:{typeof (value)}</h1>
             <FixedFloatInput value={value} onChange={onChange} />
-            <button onClick={() => setValue(parseFloat(preset))}>&lt;- Set Preset:</button>
+            <button onClick={() => setValue(parseFloat(preset))}>&lt;- SetValue:</button>
             <input type="text" value={preset} onChange={evt => setPreset(evt.target.value)} />
         </>
     );
@@ -48,7 +49,7 @@ stories.add('Default behaviour (value is a cated string)', () => {
         <>
             <h1>value: {value}, type:{typeof (value)}</h1>
             <FixedFloatInput value={value as any as number} onChange={onChange} />
-            <button onClick={() => setValue(preset)}>&lt;- Set Preset:</button>
+            <button onClick={() => setValue(preset)}>&lt;- SetValue:</button>
             <input type="text" value={preset} onChange={evt => setPreset(evt.target.value)} />
         </>
     );
@@ -65,7 +66,7 @@ stories.add('Precision', () => {
         <>
             <h1>value: {value}, type:{typeof (value)}</h1>
             <FixedFloatInput value={value} precision={precision} onChange={onChange} />
-            <button onClick={() => setPrecision(parseInt(preset))}>&lt;- Set Preset:</button>
+            <button onClick={() => setPrecision(parseInt(preset))}>&lt;- SetPrecision:</button>
             <input type="number" value={preset} onChange={evt => setPreset(evt.target.value)} />
         </>
     );
@@ -82,9 +83,8 @@ stories.add('Step width', () => {
         <>
             <h1>value: {value}, type:{typeof (value)}</h1>
             <FixedFloatInput value={value} step={preset} onChange={onChange} />
-            <button onClick={() => setStep(parseFloat(preset))}>&lt;- Set Preset:</button>
+            <button onClick={() => setStep(parseFloat(preset))}>&lt;- SetStep:</button>
             <input type="number" value={preset} onChange={evt => setPreset(evt.target.value)} />
         </>
     );
-
 });

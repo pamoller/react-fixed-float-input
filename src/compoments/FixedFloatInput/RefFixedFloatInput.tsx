@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import PropTypes, { InferProps } from 'prop-types';
 
 const defaultFormatter = function (precision: number, roundType: string): CallableFunction {
     precision = Math.floor(precision < 0?0:precision);
@@ -13,30 +12,26 @@ const connectFormatter = function (formatter: CallableFunction): CallableFunctio
     return (value: any): string => String(formatter(value));
 }
 
-const propTypes = {
-    autofocus: PropTypes.bool,
-    className: PropTypes.string,
-    disabled: PropTypes.bool,
-    id: PropTypes.string,
-    formatter: PropTypes.func,
-    max: PropTypes.number,
-    min: PropTypes.number,
-    name: PropTypes.string,
-    onChange: PropTypes.func,
-    precision: PropTypes.number,
-    roundType: PropTypes.oneOf(['round', 'floor', 'ceil']),
-    readonly: PropTypes.bool,
-    step: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+type Props = {
+    autofocus: boolean,
+    className: string,
+    disabled: boolean,
+    id: string,
+    formatter: Function,
+    max: number,
+    min: number,
+    name: string,
+    onChange: Function,
+    precision: number,
+    roundType: 'round' | 'ceil' | 'floor' 
+    readonly: boolean,
+    step: number | string,
+    value: number | string,
 };
 
-const defaultProps = {
-    precision: 2,
-    roundType: 'round',
-    onChange: () => undefined
-};
+export type RefType = HTMLInputElement;
 
-function FixedFloatInput({ value, onChange, precision, roundType, formatter, ...props }: InferProps<typeof FixedFloatInput.propTypes>) {
+const RefFixedFloatInput = React.forwardRef<RefType,Props>(({value, onChange = () => undefined, precision = 2, roundType = 'round', formatter = () => undefined, ...props }, ref) => {
     const format = connectFormatter(formatter ? formatter : defaultFormatter(precision, roundType));
     const [innerValue, setInnerValue] = useState(format(value));
 
@@ -78,6 +73,7 @@ function FixedFloatInput({ value, onChange, precision, roundType, formatter, ...
     return (
         <input
             {...props}
+            ref = {ref}
             type="number"
             value={innerValue}
             onKeyPress={onInnerKeyPress.bind(this)}
@@ -85,9 +81,6 @@ function FixedFloatInput({ value, onChange, precision, roundType, formatter, ...
             onBlur={onInnerBlur.bind(this)}
         />
     );
-}
+});
 
-FixedFloatInput.propTypes = propTypes;
-FixedFloatInput.defaultProps = defaultProps;
-
-export default FixedFloatInput;
+export default RefFixedFloatInput;

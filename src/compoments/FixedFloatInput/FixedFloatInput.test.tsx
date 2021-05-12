@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import '@testing-library/jest-dom/extend-expect'
 import { render, fireEvent, screen } from '@testing-library/react'
 import PropTypes, { InferProps } from 'prop-types';
@@ -185,3 +185,13 @@ test('use no value', async () => {
     fireEvent.blur(input);
     expect((input as any).value).toBe('13.09');
 })
+
+test('test ref', async () => {
+    const ref = useRef();
+    const { input } = setup(<FixedFloatInput ref={ref} data-testid='behaviour' />);
+    expect((input as any).value).toBe('');
+    fireEvent.change(input, { target: { value: '13.091' } });
+    fireEvent.blur(input);
+    expect((input as any).value).toBe('13.09');
+})
+
