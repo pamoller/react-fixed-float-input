@@ -34,7 +34,6 @@ function Formular() {
 | min | number | | HTML 5 input attribute |
 | onChange | ````func(value: number, event: Event)````| | Handle the changed value by a callback |
 | precision | number (integer) | 2 | The precision of the formatted value, e.g. 2 => 12.00. Works only for the default formatter. |
-| ref | React.ref | | react reference |
 | roundType | 'round' \| 'ceil' \| 'floor' | round | Round arbitrary digits by Math.round, ...|
 | step | number | 1 | HTML 5 input attribute |
 | value | number | | the formatted value | 
