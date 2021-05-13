@@ -30,13 +30,26 @@ function Formular() {
 | -----|------| --------| ----------- |
 | className | string | | Custom CSS class |   
 | formatter | ````func(value: number): string```` | | Custom formatter callback overwrites the default formatter |
-| max | number | | HTML 5 input attribute |
-| min | number | | HTML 5 input attribute |
 | onChange | ````func(value: number, event: Event)````| | Handle the changed value by a callback |
 | precision | number (integer) | 2 | The precision of the formatted value, e.g. 2 => 12.00. Works only for the default formatter. |
 | roundType | 'round' \| 'ceil' \| 'floor' | round | Round arbitrary digits by Math.round, ...|
-| step | number | 1 | HTML 5 input attribute |
 | value | number | | the formatted value | 
 
 * default formatter, inspect the code
-* HTML 5 input attribute, see https://developer.mozilla.org/de/docs/Web/HTML/Element/Input#attribute.
+
+### HTML 5 input Props
+
+HTML 5 input attribute, see https://developer.mozilla.org/de/docs/Web/HTML/Element/Input#attribute.
+
+| Name | Type | Default |
+| -----|------| --------|
+| autofocus | boolean | |   
+| disabled | boolean | |   
+| max | number | |
+| min | number | |
+| name | string | |
+| placeholder | string | |
+| required | string | |
+| placeholder | string | |
+| step | number | |
+
