@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import PropTypes, { InferProps } from 'prop-types';
+import React, { useState, useEffect, FC, InputHTMLAttributes } from "react";
 
 const defaultFormatter = function (precision: number, roundType: string): CallableFunction {
-    precision = Math.floor(precision < 0?0:precision);
+    precision = Math.floor(precision < 0 ? 0 : precision);
+    roundType = ["round", "ceil", "floor"].indexOf(roundType) < 0?"round":roundType;
     return (number: any): string => {
         const res = Math[roundType](10 ** precision * parseFloat(number)) / 10 ** precision;
         return isNaN(res) ? '' : res.toFixed(precision);
@@ -13,50 +13,39 @@ const connectFormatter = function (formatter: CallableFunction): CallableFunctio
     return (value: any): string => String(formatter(value));
 }
 
-const propTypes = {
-    autofocus: PropTypes.bool,
-    className: PropTypes.string,
-    disabled: PropTypes.bool,
-    id: PropTypes.string,
-    formatter: PropTypes.func,
-    max: PropTypes.number,
-    min: PropTypes.number,
-    name: PropTypes.string,
-    onChange: PropTypes.func,
-    precision: PropTypes.number,
-    roundType: PropTypes.oneOf(['round', 'floor', 'ceil']),
-    readonly: PropTypes.bool,
-    step: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+export interface FixedFloatInputType extends InputHTMLAttributes<HTMLInputElement> {
+    className?: string
+    formatter?: Function,
+    onChangeValue?: Function,
+    precision?: number,
+    roundType?: string,
+    value?: number | string
 };
 
-const defaultProps = {
-    precision: 2,
-    roundType: 'round',
-    onChange: () => undefined
-};
-
-function FixedFloatInput({ value, onChange, precision, roundType, formatter, ...props }: InferProps<typeof FixedFloatInput.propTypes>) {
+const FixedFloatInput: FC<FixedFloatInputType> = ({ value, onChangeValue = () => undefined, precision = 2, roundType = "round", formatter, onChange = () => undefined, onBlur = () => undefined, onKeyPress = () => undefined, ...props }) => {
     const format = connectFormatter(formatter ? formatter : defaultFormatter(precision, roundType));
     const [innerValue, setInnerValue] = useState(format(value));
 
-    function setAllValues(value, event) {
+    function setAllValues(value) {
         setInnerValue(value);
-        onChange(parseFloat(value), event);
+        onChangeValue(parseFloat(value));
     }
 
     function onInnerChange(event) {
-        setAllValues(event.target.value, event);
+        setAllValues(event.target.value);
+        onChange(event);
     }
 
     function onInnerBlur(event) {
         if (innerValue !== '')
-            setAllValues(format(innerValue), event);
+            setAllValues(format(innerValue));
+        onBlur(event);
     }
 
     function onInnerKeyPress(event) {
         if (['-', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ',', '.'].indexOf(event.key) < 0)
             event.preventDefault();
+        onKeyPress(event);
     }
 
     useEffect(
@@ -86,8 +75,5 @@ function FixedFloatInput({ value, onChange, precision, roundType, formatter, ...
         />
     );
 }
-
-FixedFloatInput.propTypes = propTypes;
-FixedFloatInput.defaultProps = defaultProps;
 
 export default FixedFloatInput;
