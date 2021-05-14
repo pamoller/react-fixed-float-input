@@ -1,13 +1,10 @@
 # react fixed float input
  
-The component decorates the HTML 5 ````<input/>```` element by props to start and end editing with a float of fixed precision.
-
-e.g. start by 0.00 and with end: 9.99, but allow free editing in between. By default 9.98542 will be rounded to 9.99 on leaving the field (onBlur). 
+Format the content of a ````<input/>```` element as a float with fixed precision. Additional digits will be rounded on initialization and on the blur event.
 
 ## Installation
  
 ## Usage
-
 
 ```jsx
 import { useState } from 'react';
@@ -20,9 +17,9 @@ function Formular() {
 }
  ```
  
-1) initialize value by ````setValue(0)```` results in formatting ````<input/>```` to ````<input>0.00</input>```` 
-2) editing the ````<input/>```` field manually to ````<input>9.98542</input>```` calls ````setValue(9.98542)```` in the onChangeValue callback
-3) leaving the input field (onBlur) calls again  ````setValue(9.99)```` and formats ````<input/>```` to ````<input>9.99</input>````  
+1) initialize value by ````useState(0)```` results in displaying  the formatted value ````<input>0.00</input>````
+2) editing the field manually to ````<input>9.98542</input>```` invokes ````setValue(9.98542)```` inside the onChangeValue callback
+3) leaving the ````<input/>```` field (onblur) invokes again ````setValue(9.99)```` and  displaying ````<input>9.99</input>```` for the formated value
 
 ## Props
 
