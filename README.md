@@ -3,7 +3,13 @@
 Format the content of a ````<input/>```` element as a float with fixed precision. Additional digits will be rounded on initialization and on the blur event.
 
 ## Installation
+
+````npm install --save react-fixed-float-input````
  
+ or 
+
+````yarn add react-fixed-float-input````
+
 ## Usage
 
 ```jsx
@@ -34,3 +40,9 @@ function Formular() {
 
 * default formatter, inspect the code
 * HTML 5 input attributes, see https://developer.mozilla.org/de/docs/Web/HTML/Element/Input#attribute.
+
+## Comments
+
+Sure JS and Typescript know only numbers, no floats.
+
+Personally I don't like to get stuck while typing on the keyboard. So this compoment allows free typing of numbers, Sure it remains a little suprise on bluring when your input gets rounded or cuted, anyway. 
