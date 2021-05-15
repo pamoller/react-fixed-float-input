@@ -1,1 +1,2 @@
-export {default as FixedFloatInput} from './compoments/FixedFloatInput';
+import FixedFloatInput from './compoments/FixedFloatInput';
+export default FixedFloatInput;

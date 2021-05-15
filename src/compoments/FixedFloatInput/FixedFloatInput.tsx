@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FC, InputHTMLAttributes } from "react";
+import React, { useState, useEffect, InputHTMLAttributes } from "react";
 
 const defaultFormatter = function (precision: number, roundType: string): CallableFunction {
     precision = Math.floor(precision < 0 ? 0 : precision);
@@ -22,7 +22,7 @@ export interface FixedFloatInputType extends InputHTMLAttributes<HTMLInputElemen
     value?: number | string
 };
 
-const FixedFloatInput: FC<FixedFloatInputType> = ({ value, onChangeValue = () => undefined, precision = 2, roundType = "round", formatter, onChange = () => undefined, onBlur = () => undefined, onKeyPress = () => undefined, ...props }) => {
+export default ({ value, onChangeValue = () => undefined, precision = 2, roundType = "round", formatter, onChange = () => undefined, onBlur = () => undefined, onKeyPress = () => undefined, ...props }: FixedFloatInputType) => {
     const format = connectFormatter(formatter ? formatter : defaultFormatter(precision, roundType));
     const [innerValue, setInnerValue] = useState(format(value));
 
@@ -32,7 +32,7 @@ const FixedFloatInput: FC<FixedFloatInputType> = ({ value, onChangeValue = () =>
     }
 
     function onInnerChange(event) {
-        setAllValues(event.target.value);
+        setAllValues(event.currentTarget.value);
         onChange(event);
     }
 
@@ -75,5 +75,3 @@ const FixedFloatInput: FC<FixedFloatInputType> = ({ value, onChangeValue = () =>
         />
     );
 }
-
-export default FixedFloatInput;

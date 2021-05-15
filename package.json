@@ -1,11 +1,24 @@
 {
   "name": "react-fixed-float-input",
   "version": "1.0.0",
-  "description": "format value of number input as fixed floats",
+  "description": "Format the content of a <input/> element as a float with fixed precision",
+  "keywords": [
+    "react",
+    "react-component",
+    "float",
+    "number",
+    "input",
+    "precision"
+  ],
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "author": "Peter Andreas Möller",
   "license": "MIT",
+  "homepage": "https://github.com/pamoller/react-fixed-float-input",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pamoller/react-fixed-float-input"
+  },
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",

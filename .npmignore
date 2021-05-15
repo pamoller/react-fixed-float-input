@@ -1,0 +1,11 @@
+#ignore temprory files
+.cache
+*.log
+*.swp
+.DS_Store
+
+#ignore gitignore
+.gitignore
+
+#ignore development files
+node_modules/
