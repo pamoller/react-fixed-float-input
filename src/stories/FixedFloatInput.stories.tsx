@@ -7,8 +7,8 @@ const stories = storiesOf('App Test', module);
 
 
 stories.add('Default behaviour (preset is number)', () => {
-    const [value, setValue] = useState(12);
-    const [preset, setPreset] = useState(NaN);
+    const [value, setValue] = useState("12");
+    const [preset, setPreset] = useState("");
     const onChangeValue = value => setValue(value);
 
     return (
@@ -16,7 +16,7 @@ stories.add('Default behaviour (preset is number)', () => {
             <h1>value: {value}, type:{typeof (value)}</h1>
             <FixedFloatInput value={value} onChangeValue={onChangeValue} />
             <button onClick={() => setValue(preset)}>&lt;- SetValue:</button>
-            <input type="number" value={preset} onChange={evt => setPreset(parseFloat(evt.target.value))} />
+            <input type="number" value={preset} onChange={evt => setPreset(evt.target.value)} />
         </>
     );
 

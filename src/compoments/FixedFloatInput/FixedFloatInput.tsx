@@ -10,9 +10,7 @@ const defaultFormatter = function (precision: number, roundType: string): Callab
 }
 
 const connectFormatter = function (formatter: CallableFunction): CallableFunction {
-    return (value: any): string => {
-        return String(formatter(value))
-    };
+    return (value: any): string => String(formatter(value));
 }
 
 export interface FixedFloatInputType extends InputHTMLAttributes<HTMLInputElement> {

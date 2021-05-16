@@ -35,7 +35,7 @@ function Formular() {
 | formatter | ````func(value: number): string```` | | Custom formatter callback overwrites the default formatter |
 | onChangeValue | ````func(value: number)```` | | Handle the changed value by a callback |
 | precision | number  | 2 | The precision of the formatted value, e.g. 2 => 12.00. Works only for the default formatter. |
-| roundType | round \| ceil \| floor | round | Round arbitrary digits by Math.round, ...|
+| roundType | round \| ceil \| floor | round | Round additional digits by Math.round, ... Works only for the default formatter |
 | value | number \| string | | the formatted value | 
 
 * Inspect the code for the default formatter
@@ -44,9 +44,7 @@ function Formular() {
 ## Custom formatter
 
 ````jsx
-(number) => {
-    return isNaN(parseFloat(value))?'':parseFloat(number).toLocaleString('en', {minimumFractionDigits:0, maximumFractionDigits:2});
-}
+(number) => isNaN(parseFloat(value))?'':parseFloat(number).toLocaleString('en', {minimumFractionDigits:0, maximumFractionDigits:2});
 ````
 
 Note: the returned string should be a vaild float in spite of HTML 5 e.g. -123.3456

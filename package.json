@@ -1,6 +1,6 @@
 {
   "name": "react-fixed-float-input",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Format the content of a <input/> element as a float with fixed precision",
   "keywords": [
     "react",
