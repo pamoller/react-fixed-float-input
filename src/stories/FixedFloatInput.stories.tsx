@@ -89,7 +89,7 @@ stories.add('Step width', () => {
 });
 
 stories.add('Max=1 Min=0', () => {
-    const [value, setValue] = useState(0.5);
+    const [value, setValue] = useState(12);
     const onChangeValue = value => setValue(value);
 
     return (

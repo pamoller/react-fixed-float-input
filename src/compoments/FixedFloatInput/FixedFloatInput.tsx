@@ -1,6 +1,6 @@
 import React, { useState, useEffect, InputHTMLAttributes } from "react";
 
-const defaultFormatter = function (precision: number, roundType: string): CallableFunction {
+const defaultFormatter = function (precision: number, roundType: string, locale: string): CallableFunction {
     precision = Math.floor(precision < 0 ? 0 : precision);
     roundType = ["round", "ceil", "floor"].indexOf(roundType) < 0?"round":roundType;
     return (number: any): string => {
@@ -10,7 +10,9 @@ const defaultFormatter = function (precision: number, roundType: string): Callab
 }
 
 const connectFormatter = function (formatter: CallableFunction): CallableFunction {
-    return (value: any): string => String(formatter(value));
+    return (value: any): string => {
+        return String(formatter(value))
+    };
 }
 
 export interface FixedFloatInputType extends InputHTMLAttributes<HTMLInputElement> {
@@ -19,11 +21,12 @@ export interface FixedFloatInputType extends InputHTMLAttributes<HTMLInputElemen
     onChangeValue?: Function,
     precision?: number,
     roundType?: string,
-    value?: number | string
+    value?: number | string,
+    locale?: string
 };
 
-export default ({ value, onChangeValue = () => undefined, precision = 2, roundType = "round", formatter, onChange = () => undefined, onBlur = () => undefined, onKeyPress = () => undefined, ...props }: FixedFloatInputType) => {
-    const format = connectFormatter(formatter ? formatter : defaultFormatter(precision, roundType));
+export default ({ value, onChangeValue = () => undefined, precision = 2, locale, roundType = "round", formatter, onChange = () => undefined, onBlur = () => undefined, onKeyPress = () => undefined, ...props }: FixedFloatInputType) => {
+    const format = connectFormatter(formatter ? formatter : defaultFormatter(precision, roundType, 'de'));
     const [innerValue, setInnerValue] = useState(format(value));
 
     function setAllValues(value) {
@@ -32,6 +35,7 @@ export default ({ value, onChangeValue = () => undefined, precision = 2, roundTy
     }
 
     function onInnerChange(event) {
+        console.log(event.currentTarget.value)
         setAllValues(event.currentTarget.value);
         onChange(event);
     }

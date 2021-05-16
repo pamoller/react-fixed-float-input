@@ -8,7 +8,8 @@
     "float",
     "number",
     "input",
-    "precision"
+    "precision",
+    "fixed"
   ],
   "main": "dist/index.js",
   "module": "dist/index.es.js",

@@ -43,6 +43,6 @@ function Formular() {
 
 ## Comments
 
-Sure JS and Typescript know only numbers, no floats.
+Sure, JS and Typescript know only numbers, no floats.
 
-Personally I don't like to get stuck while typing on the keyboard. So this compoment allows free typing of numbers, Sure it remains a little suprise on bluring when your input gets rounded or cuted, anyway. 
+Personally I don't like to get stuck while typing on the keyboard. So this compoment allows free typing of digits. 
