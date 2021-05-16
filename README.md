@@ -38,8 +38,18 @@ function Formular() {
 | roundType | round \| ceil \| floor | round | Round arbitrary digits by Math.round, ...|
 | value | number \| string | | the formatted value | 
 
-* default formatter, inspect the code
+* Inspect the code for the default formatter
 * HTML 5 input attributes, see https://developer.mozilla.org/de/docs/Web/HTML/Element/Input#attribute.
+
+## Custom formatter
+
+````jsx
+(number) => {
+    return isNaN(parseFloat(value))?'':parseFloat(number).toLocaleString('en', {minimumFractionDigits:0, maximumFractionDigits:2});
+}
+````
+
+Note: the returned string should be a vaild float in spite of HTML 5 e.g. -123.3456
 
 ## Comments
 
