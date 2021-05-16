@@ -35,7 +35,6 @@ export default ({ value, onChangeValue = () => undefined, precision = 2, locale,
     }
 
     function onInnerChange(event) {
-        console.log(event.currentTarget.value)
         setAllValues(event.currentTarget.value);
         onChange(event);
     }
