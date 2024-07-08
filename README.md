@@ -1,3 +1,7 @@
+[![npm](https://img.shields.io/npm/v/react-fixed-float-input)](https://www.npmjs.com/package/react-fixed-float-input) 
+[![npm](https://img.shields.io/npm/dm/react-fixed-float-input)](https://www.npmjs.com/package/react-fixed-float-input)
+[![NPM](https://img.shields.io/npm/l/react-fixed-float-input)](https://www.npmjs.com/package/react-fixed-float-input) 
+
 # react fixed float input
  
 Format the content of a ````<input/>```` element as a float with fixed precision. Additional digits will be rounded on initialization and on the blur event.
